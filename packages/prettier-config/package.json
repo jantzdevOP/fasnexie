@@ -1,0 +1,12 @@
+{
+  "name": "@repo/prettier-config",
+  "version": "0.1.0",
+  "description": "Shared Prettier configuration",
+  "main": "index.json",
+  "scripts": {
+    "clean": "rm -rf node_modules"
+  },
+  "dependencies": {
+    "prettier": "^3.0.0"
+  }
+}

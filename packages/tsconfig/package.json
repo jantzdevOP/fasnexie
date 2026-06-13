@@ -1,0 +1,12 @@
+{
+  "name": "@repo/tsconfig",
+  "version": "0.1.0",
+  "description": "Shared TypeScript configurations",
+  "main": "base.json",
+  "scripts": {
+    "clean": "rm -rf node_modules"
+  },
+  "dependencies": {
+    "typescript": "^5.2.0"
+  }
+}

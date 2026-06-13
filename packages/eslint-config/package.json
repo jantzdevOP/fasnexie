@@ -1,0 +1,17 @@
+{
+  "name": "@repo/eslint-config",
+  "version": "0.1.0",
+  "description": "Shared ESLint configuration",
+  "main": "./base.js",
+  "scripts": {
+    "clean": "rm -rf node_modules"
+  },
+  "dependencies": {
+    "eslint": "^8.50.0",
+    "eslint-config-next": "^14.0.0",
+    "eslint-plugin-react": "^7.33.0",
+    "eslint-plugin-react-native": "^4.1.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "lib": ["es2020"],
+    "target": "es2020",
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "moduleResolution": "bundler",
+    "allowJs": true,
+    "strict": true,
+    "noEmit": true
+  }
+}
