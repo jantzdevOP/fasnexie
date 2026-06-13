@@ -1,0 +1,29 @@
+{
+  "name": "fasnexi",
+  "version": "0.1.0",
+  "description": "Fasnexi - Fashion Technology Platform",
+  "private": true,
+  "packageManager": "pnpm@8.10.0",
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "test:e2e": "turbo run test:e2e",
+    "lint": "turbo run lint",
+    "format": "turbo run format",
+    "type-check": "turbo run type-check",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "db:migrate": "turbo run db:migrate",
+    "db:seed": "turbo run db:seed"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "*",
+    "@repo/prettier-config": "*",
+    "@repo/tsconfig": "*",
+    "turbo": "^1.10.16"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
+}
