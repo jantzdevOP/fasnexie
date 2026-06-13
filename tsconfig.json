@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "lib": ["es2020"],
+    "target": "es2020",
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "moduleResolution": "bundler",
+    "allowJs": true,
+    "strict": true,
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@repo/shared-types": ["packages/shared-types/src"],
+      "@repo/ui": ["packages/ui/src"],
+      "@repo/utils": ["packages/utils/src"],
+      "@repo/eslint-config": ["packages/eslint-config"],
+      "@repo/prettier-config": ["packages/prettier-config"],
+      "@repo/tsconfig": ["packages/tsconfig"]
+    }
+  },
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules", "dist", "build", ".next"]
+}
