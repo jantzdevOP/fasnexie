@@ -1,0 +1,16 @@
+{
+  "extends": "@repo/tsconfig/next.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@/lib/*": ["./src/lib/*"],
+      "@/middleware/*": ["./src/middleware/*"],
+      "@/services/*": ["./src/services/*"],
+      "@/validators/*": ["./src/validators/*"],
+      "@/types/*": ["./src/types/*"],
+      "@repo/shared-types": ["../../packages/shared-types/src"],
+      "@repo/utils": ["../../packages/utils/src"]
+    }
+  }
+}
