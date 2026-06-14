@@ -20,7 +20,7 @@
   "dependencies": {
     "next": "^16.2.9",
     "react": "19.2.7",
-    "react-dom": "18.2.0",
+    "react-dom": "19.2.7",
     "@prisma/client": "^5.0.0",
     "better-auth": "^1.0.0",
     "anthropic": "^0.10.0",
