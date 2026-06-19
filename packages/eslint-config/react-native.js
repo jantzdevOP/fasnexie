@@ -1,7 +1,6 @@
 module.exports = {
-  extends: ['./base.js', 'plugin:react-native/all'],
+  extends: ['./base.js'],
   rules: {
-    'react-native/no-unused-styles': 'warn',
-    'react-native/split-platform-components': 'warn',
+    '@typescript-eslint/no-unused-vars': 'off',
   },
 };

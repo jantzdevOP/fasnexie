@@ -22,6 +22,7 @@ const tabHaptics = {
 
 export default function TabsLayout() {
   const { trigger } = useHaptics();
+
   return (
     <Tabs
       screenOptions={({ route }) => ({
@@ -36,7 +37,9 @@ export default function TabsLayout() {
       screenListeners={({ route }) => ({
         tabPress: () => {
           const key = route.name as keyof typeof tabHaptics;
-          trigger(tabHaptics[key]).catch(() => undefined);
+          if (key in tabHaptics) {
+            trigger(tabHaptics[key]).catch(() => undefined);
+          }
         },
       })}
     >

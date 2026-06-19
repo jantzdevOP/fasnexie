@@ -7,6 +7,7 @@ import { GoldProgress } from '@/components/ui/GoldProgress';
 
 export default function WelcomeStep() {
   const [show, setShow] = useState(false);
+
   useEffect(() => {
     const timer = setTimeout(() => setShow(true), 5000);
     return () => clearTimeout(timer);
@@ -26,4 +27,22 @@ export default function WelcomeStep() {
   );
 }
 
-const styles = StyleSheet.create({ screen: { flex: 1, backgroundColor: '#0B0B0B', padding: 20, gap: 20 }, hero: { flex: 1, borderRadius: 12, backgroundColor: '#0F0B06' }, title: { color: '#F5F5F5', fontSize: 48, lineHeight: 56, letterSpacing: -0.5 } });
+const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    backgroundColor: '#0B0B0B',
+    padding: 20,
+    gap: 20,
+  },
+  hero: {
+    flex: 1,
+    borderRadius: 12,
+    backgroundColor: '#0F0B06',
+  },
+  title: {
+    color: '#F5F5F5',
+    fontSize: 48,
+    lineHeight: 56,
+    letterSpacing: -0.5,
+  },
+});

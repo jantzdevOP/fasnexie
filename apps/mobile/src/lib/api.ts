@@ -3,5 +3,10 @@ export async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> 
   if (!response.ok) {
     throw new Error(`API request failed: ${response.status}`);
   }
-  return response.json() as Promise<T>;
+
+  try {
+    return (await response.json()) as T;
+  } catch {
+    throw new Error('Failed to parse response as JSON');
+  }
 }

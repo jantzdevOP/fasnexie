@@ -37,10 +37,14 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
-      - run: |
+      - name: Verify API bundle growth
+        run: |
           CURRENT=$(du -sb apps/api/.next | cut -f1)
-          BASELINE=1
+          BASELINE=$(cat .github/bundle-baseline-bytes.txt)
           DELTA=$(( (CURRENT-BASELINE) * 100 / BASELINE ))
+          echo "Current bundle bytes: ${CURRENT}"
+          echo "Baseline bundle bytes: ${BASELINE}"
+          echo "Delta: ${DELTA}%"
           if [ "$DELTA" -gt 20 ]; then
             echo "Bundle increased more than 20%"
             exit 1
