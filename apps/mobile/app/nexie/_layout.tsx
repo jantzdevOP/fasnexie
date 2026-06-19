@@ -1,0 +1,6 @@
+/** Emotional Context: BELONGING */
+import { Stack } from 'expo-router';
+
+export default function NexieLayout() {
+  return <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: '#0A0A0A' } }} />;
+}

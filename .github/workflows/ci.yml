@@ -1,68 +1,69 @@
-name: CI
+name: ci
 
 on:
-  push:
-    branches:
-      - main
-      - develop
   pull_request:
-    branches:
-      - main
-      - develop
+  push:
+    branches: [main, develop]
 
 jobs:
-  lint:
-    name: Lint Code
+  quality:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v4
         with:
           version: 8.10.0
       - uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          cache: 'pnpm'
+          node-version: 20
+          cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm lint
+      - run: pnpm format --check
+      - run: pnpm lint -- --max-warnings=0
       - run: pnpm type-check
+      - run: pnpm test -- --coverage
+      - run: pnpm build
 
-  test:
-    name: Unit Tests
+  bundle-size:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v4
         with:
           version: 8.10.0
       - uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          cache: 'pnpm'
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm test
-      - uses: codecov/codecov-action@v3
-        if: always()
-
-  build:
-    name: Build All Packages
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8.10.0
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-          cache: 'pnpm'
+          node-version: 20
+          cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
-      - uses: actions/upload-artifact@v3
+      - run: |
+          CURRENT=$(du -sb apps/api/.next | cut -f1)
+          BASELINE=1
+          DELTA=$(( (CURRENT-BASELINE) * 100 / BASELINE ))
+          if [ "$DELTA" -gt 20 ]; then
+            echo "Bundle increased more than 20%"
+            exit 1
+          fi
+
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
         with:
-          name: build-artifacts
-          path: |
-            apps/api/.next
-            apps/api/dist
-            apps/mobile/dist
-          retention-days: 7
+          version: 8.10.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Trivy scan
+        uses: aquasecurity/trivy-action@0.24.0
+        with:
+          scan-type: fs
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          exit-code: 1
+      - name: Gitleaks scan
+        uses: gitleaks/gitleaks-action@v2

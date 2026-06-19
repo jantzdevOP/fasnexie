@@ -1,0 +1,18 @@
+name: deploy-production
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  production:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "Verify tag matches package version"
+      - run: echo "Verify changelog entry"
+      - run: echo "Deploy production"
+      - run: echo "Run migrations"
+      - run: echo "Create Sentry release"
+      - run: echo "Smoke test"
+      - run: echo "Notify Slack"

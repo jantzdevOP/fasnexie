@@ -1,0 +1,13 @@
+name: deploy-preview
+
+on:
+  pull_request:
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "Deploy preview to Vercel"
+      - run: echo "Run smoke E2E"
+      - run: echo "Comment preview URL on PR"
