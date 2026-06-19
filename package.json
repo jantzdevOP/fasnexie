@@ -20,7 +20,7 @@
     "@repo/eslint-config": "*",
     "@repo/prettier-config": "*",
     "@repo/tsconfig": "*",
-    "turbo": "^1.10.16"
+    "turbo": "^2.9.18"
   },
   "workspaces": [
     "apps/*",

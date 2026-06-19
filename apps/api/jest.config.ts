@@ -5,6 +5,7 @@ const config: Config.InitialOptions = {
   preset: 'ts-jest',
   testEnvironment: 'node',
   rootDir: '.',
+  roots: ['<rootDir>/src', '<rootDir>/tests'],
   testMatch: ['**/__tests__/**/*.test.ts', '**/*.test.ts'],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
@@ -16,6 +17,7 @@ const config: Config.InitialOptions = {
     '!src/**/*.d.ts',
     '!src/types/**',
   ],
+  modulePathIgnorePatterns: ['<rootDir>/.next'],
   testPathIgnorePatterns: ['/node_modules/', '/.next/'],
 };
 

@@ -7,11 +7,10 @@
     "clean": "rm -rf node_modules"
   },
   "dependencies": {
-    "eslint": "^8.50.0",
-    "eslint-config-next": "^14.0.0",
+    "eslint": "^9.39.1",
     "eslint-plugin-react": "^7.33.0",
     "eslint-plugin-react-native": "^4.1.0",
-    "@typescript-eslint/eslint-plugin": "^6.0.0",
-    "@typescript-eslint/parser": "^6.0.0"
+    "@typescript-eslint/eslint-plugin": "^8.35.0",
+    "@typescript-eslint/parser": "^8.35.0"
   }
 }
