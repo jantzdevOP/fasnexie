@@ -18,7 +18,7 @@ jobs:
           node-version: 20
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm --filter @fasnexi/api exec prettier --check "**/*.{ts,tsx,json,md}"
+      - run: pnpm --filter @fasnexi/api exec prettier --check --ignore-path ../../.gitignore "**/*.{ts,tsx,json,md}"
       - run: pnpm lint -- --max-warnings=0
       - run: pnpm type-check
       - run: pnpm test -- --coverage
