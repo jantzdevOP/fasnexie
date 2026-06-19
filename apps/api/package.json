@@ -27,7 +27,7 @@
     "react-dom": "19.2.7",
     "redis": "^6.0.0",
     "stripe": "^22.2.2",
-    "zod": "^3.22.0"
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@jest/types": "^29.6.3",

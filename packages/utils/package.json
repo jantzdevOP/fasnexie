@@ -9,7 +9,7 @@
     "clean": "rm -rf dist node_modules"
   },
   "dependencies": {
-    "zod": "^3.22.0"
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@repo/tsconfig": "*",
