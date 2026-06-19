@@ -45,7 +45,7 @@ Two transitive dependencies shipped vulnerable versions:
 
 | Package | Installed | Fixed | CVEs |
 |---|---|---|---|
-| `@xmldom/xmldom` | 0.7.13 (via `@expo/plist@0.2.2`) | ≥ 0.9.9 | CVE-2026-34601, CVE-2026-41672, CVE-2026-41673, CVE-2026-41674, CVE-2026-41675 |
+| `@xmldom/xmldom` | 0.7.13 (via `@expo/plist@0.2.2`) | ≥ 0.9.10 | CVE-2026-34601, CVE-2026-41672, CVE-2026-41673, CVE-2026-41674, CVE-2026-41675 |
 | `glob` | 10.3.10 (via `@next/eslint-plugin-next@14.2.35`) | ≥ 10.5.0 | CVE-2025-64756 |
 
 Because `ignore-unfixed: true` is set in the Trivy step, only *fixed*
