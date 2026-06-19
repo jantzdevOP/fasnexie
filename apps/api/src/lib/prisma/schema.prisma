@@ -1,0 +1,40 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  CONSUMER
+  CREATOR
+  VENDOR
+  DESIGNER
+  TAILOR
+  EVENT_ORGANIZER
+  INVESTOR
+}
+
+model User {
+  id         String   @id @default(cuid())
+  email      String   @unique
+  name       String?
+  role       UserRole @default(CONSUMER)
+  styleDNA   String?
+  wardrobeItems WardrobeItem[]
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model WardrobeItem {
+  id         String   @id @default(cuid())
+  userId     String
+  name       String
+  category   String
+  createdAt  DateTime @default(now())
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}

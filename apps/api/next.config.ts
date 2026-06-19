@@ -2,11 +2,7 @@ import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
-  experimental: {
-    serverActions: true,
-    serverComponentsExternalPackages: ['@prisma/client', 'redis'],
-  },
+  serverExternalPackages: ['@prisma/client', 'redis'],
   headers: async () => {
     return [
       {

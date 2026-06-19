@@ -1,68 +1,73 @@
-name: CI
+name: ci
 
 on:
-    push:
-    branches:
-    - main
-    - develop
-    pull_request:
-    branches:
-    - main
-    - develop
+  pull_request:
+  push:
+    branches: [main, develop]
 
 jobs:
-    lint:
-    name: Lint Code
+  quality:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-    with:
-    - node-version: '18'
-    - cache: 'pnpm'
-    - uses: pnpm/action-setup@v2
-    with:
-    - version: 8.10.0
-    - run: pnpm install --frozen-lockfile
-    - run: pnpm lint
-    - run: pnpm type-check
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 8.10.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm format --check
+      - run: pnpm lint -- --max-warnings=0
+      - run: pnpm type-check
+      - run: pnpm test -- --coverage
+      - run: pnpm build
 
- test:
-    name: Unit Tests
+  bundle-size:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-    with:
-    - node-version: '18'
-    - cache: 'pnpm'
-    - uses: pnpm/action-setup@v2
-    with:
-    - version: 8.10.0
-    - run: pnpm install --frozen-lockfile
-    - run: pnpm test
-    - uses: codecov/codecov-action@v3
-    if: always()
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 8.10.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - name: Verify API bundle growth
+        run: |
+          CURRENT=$(du -sb apps/api/.next | cut -f1)
+          BASELINE=$(cat .github/bundle-baseline-bytes.txt)
+          DELTA=$(( (CURRENT-BASELINE) * 100 / BASELINE ))
+          echo "Current bundle bytes: ${CURRENT}"
+          echo "Baseline bundle bytes: ${BASELINE}"
+          echo "Delta: ${DELTA}%"
+          if [ "$DELTA" -gt 20 ]; then
+            echo "Bundle increased more than 20%"
+            exit 1
+          fi
 
- build:
-    name: Build All Packages
+  security:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-    with:
-    - node-version: '18'
-    - cache: 'pnpm'
-    - uses: pnpm/action-setup@v2
-    with:
-    - version: 8.10.0
-    - run: pnpm install --frozen-lockfile
-    - run: pnpm build
-    - uses: actions/upload-artifact@v3
-    with:
-    - name: build-artifacts
-    - path:
-    - apps/api/.next
-    - apps/api/dist
-    - apps/mobile/dist
-    - retention-days: 7
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 8.10.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Trivy scan
+        uses: aquasecurity/trivy-action@0.24.0
+        with:
+          scan-type: fs
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          exit-code: 1
+      - name: Gitleaks scan
+        uses: gitleaks/gitleaks-action@v2
