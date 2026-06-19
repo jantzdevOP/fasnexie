@@ -1,4 +1,12 @@
-export const authRoles = ['Consumer', 'Creator', 'Vendor', 'Designer', 'Tailor', 'Event Organizer', 'Investor'] as const;
+export const authRoles = [
+  'Consumer',
+  'Creator',
+  'Vendor',
+  'Designer',
+  'Tailor',
+  'Event Organizer',
+  'Investor',
+] as const;
 
 export type AuthRole = (typeof authRoles)[number];
 
