@@ -26,17 +26,20 @@ export default function TabsLayout() {
   return (
     <Tabs
       screenOptions={({ route }) => ({
+        tabBarIcon: ({ color }) => {
+          const routeKey = route.name.split('/')[0];
+          return <Text style={{ color, fontSize: 18 }}>{icons[routeKey] ?? '◈'}</Text>;
+        },
         headerShown: false,
         tabBarStyle: { backgroundColor: 'rgba(11,11,11,0.95)', borderTopColor: 'rgba(245,245,245,0.08)' },
         tabBarBackground: () => (Platform.OS === 'ios' ? <BlurView intensity={35} tint="dark" style={{ flex: 1 }} /> : null),
         tabBarLabelStyle: { fontFamily: 'Inter-Medium', fontSize: 10, letterSpacing: 0.3 },
         tabBarActiveTintColor: '#D4AF37',
         tabBarInactiveTintColor: 'rgba(245,245,245,0.5)',
-        tabBarIcon: ({ color }) => <Text style={{ color, fontSize: 18 }}>{icons[route.name] ?? '◈'}</Text>,
       })}
       screenListeners={({ route }) => ({
         tabPress: () => {
-          const key = route.name as keyof typeof tabHaptics;
+          const key = route.name.split('/')[0] as keyof typeof tabHaptics;
           if (key in tabHaptics) {
             trigger(tabHaptics[key]).catch(() => undefined);
           }
