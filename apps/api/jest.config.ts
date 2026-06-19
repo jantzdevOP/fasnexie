@@ -12,11 +12,7 @@ const config: Config.InitialOptions = {
     '^@repo/(.*)$': '<rootDir>/../../packages/$1',
   },
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
-  collectCoverageFrom: [
-    'src/**/*.ts',
-    '!src/**/*.d.ts',
-    '!src/types/**',
-  ],
+  collectCoverageFrom: ['src/**/*.ts', '!src/**/*.d.ts', '!src/types/**'],
   modulePathIgnorePatterns: ['<rootDir>/.next'],
   testPathIgnorePatterns: ['/node_modules/', '/.next/'],
 };

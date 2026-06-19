@@ -18,7 +18,7 @@ export async function POST(request: Request) {
         error: 'Invalid request payload',
         details: parsed.error.flatten(),
       },
-      { status: 400 },
+      { status: 400 }
     );
   }
 
