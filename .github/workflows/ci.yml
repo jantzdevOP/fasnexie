@@ -24,7 +24,7 @@ jobs:
       - run: pnpm --filter @fasnexi/api exec prettier --check --ignore-path ../../.gitignore "**/*.{ts,tsx,json,md}"
       - run: pnpm lint -- --max-warnings=0
       - run: pnpm type-check
-      - run: pnpm test -- --coverage
+      - run: pnpm test
       - run: pnpm build
 
   bundle-size:

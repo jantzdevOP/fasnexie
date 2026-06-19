@@ -25,5 +25,11 @@
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "pnpm": {
+    "overrides": {
+      "@xmldom/xmldom": ">=0.9.10",
+      "glob": ">=10.5.0"
+    }
+  }
 }
