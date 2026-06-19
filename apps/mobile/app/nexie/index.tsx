@@ -16,4 +16,4 @@ export default function NexieScreen() {
   );
 }
 
-const styles = StyleSheet.create({ screen: { flex: 1, backgroundColor: '#0A0A0A', padding: 20, gap: 16 }, header: { flexDirection: 'row', alignItems: 'center', gap: 8 }, name: { color: '#D4AF37', fontSize: 22 }, status: { color: 'rgba(245,245,245,0.7)' } });
+const styles = StyleSheet.create({ screen: { flex: 1, backgroundColor: '#0B0B0B', padding: 20, gap: 16 }, header: { flexDirection: 'row', alignItems: 'center', gap: 8 }, name: { color: '#D4AF37', fontSize: 22 }, status: { color: 'rgba(245,245,245,0.7)' } });

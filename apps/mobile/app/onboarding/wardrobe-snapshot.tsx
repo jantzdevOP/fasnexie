@@ -1,20 +1,34 @@
 /** Emotional Context: EMPOWERMENT */
 import { SafeAreaView, Text, View, StyleSheet } from 'react-native';
+import { router } from 'expo-router';
 import { GoldProgress } from '@/components/ui/GoldProgress';
 import { BrandButton } from '@/components/ui/BrandButton';
+import { useHaptics } from '@/hooks/useHaptics';
 
 export default function WardrobeSnapshotStep() {
+  const { trigger } = useHaptics();
   return (
     <SafeAreaView style={styles.screen}>
       <GoldProgress progress={5 / 6} />
-      <Text style={styles.title}>Show us three pieces you love. No judgment—just discovery.</Text>
+      <Text style={styles.title}>Show us three pieces you love</Text>
       <View style={styles.viewfinder}>
         <View style={styles.corner} />
         <View style={[styles.corner, styles.topRight]} />
         <View style={[styles.corner, styles.bottomLeft]} />
         <View style={[styles.corner, styles.bottomRight]} />
       </View>
-      <BrandButton label="Capture Piece" variant="secondary" onPress={() => undefined} />
+      <View style={styles.actions}>
+        <BrandButton label="Back" variant="ghost" onPress={() => router.back()} />
+        <BrandButton label="Capture Piece" variant="secondary" onPress={() => undefined} />
+      </View>
+      <BrandButton
+        label="Continue"
+        variant="ceremonial"
+        onPress={() => {
+          trigger('confirmation').catch(() => undefined);
+          router.push('/onboarding/preview');
+        }}
+      />
     </SafeAreaView>
   );
 }
@@ -64,5 +78,10 @@ const styles = StyleSheet.create({
     top: undefined,
     bottom: 16,
     transform: [{ rotate: '180deg' }],
+  },
+  actions: {
+    flexDirection: 'row',
+    gap: 8,
+    justifyContent: 'space-between',
   },
 });

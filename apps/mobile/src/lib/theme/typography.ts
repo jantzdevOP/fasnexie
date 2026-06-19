@@ -14,6 +14,6 @@ export const typography = {
     body: { fontSize: 16, lineHeight: 24 },
     caption: { fontSize: 12, lineHeight: 16 },
     overline: { fontSize: 10, letterSpacing: 1.5, textTransform: 'uppercase' as const },
-    price: { fontSize: 24, lineHeight: 32 },
+    price: { fontSize: 24, lineHeight: 32, fontFamily: 'Inter-Medium' },
   },
 } as const;
