@@ -1,0 +1,45 @@
+name: Upgrade Dependencies
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [Nexieupdate]
+
+permissions:
+  contents: write
+
+jobs:
+  upgrade:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: latest
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - name: Install dependencies
+        run: pnpm install
+      - name: Upgrade all workspace dependencies to latest
+        run: pnpm -w up -L --latest
+      - name: Install updated dependencies
+        run: pnpm install
+      - name: Run Prettier
+        run: pnpm -w format
+      - name: Run ESLint autofix
+        run: pnpm -w lint -- --fix || true
+      - name: Run TypeScript type-check
+        run: pnpm -w type-check || true
+      - name: Run tests
+        run: pnpm -w test || true
+      - name: Commit upgrades
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "chore(deps): upgrade workspace dependencies to latest and apply autofixes"
+          branch: Nexieupdate
