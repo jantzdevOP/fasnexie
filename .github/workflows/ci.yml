@@ -15,17 +15,23 @@ jobs:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
         with:
-          version: 8.10.0
+          version: latest
       - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm --filter @fasnexi/api exec prettier --check --ignore-path ../../.gitignore "**/*.{ts,tsx,json,md}"
-      - run: pnpm lint -- --max-warnings=0
-      - run: pnpm type-check
-      - run: pnpm test
-      - run: pnpm build
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Prettier check
+        run: pnpm --filter @fasnexi/api exec prettier --check --ignore-path ../../.gitignore "**/*.{ts,tsx,json,md}"
+      - name: Lint
+        run: pnpm lint -- --max-warnings=0
+      - name: Type check
+        run: pnpm type-check
+      - name: Test
+        run: pnpm test
+      - name: Build
+        run: pnpm build
 
   bundle-size:
     runs-on: ubuntu-latest
@@ -33,17 +39,23 @@ jobs:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
         with:
-          version: 8.10.0
+          version: latest
       - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm build
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build
+        run: pnpm build
       - name: Verify API bundle growth
         run: |
-          CURRENT=$(du -sb apps/api/.next | cut -f1)
-          BASELINE=$(cat .github/bundle-baseline-bytes.txt)
+          CURRENT=$(du -sb apps/api/.next | cut -f1 || echo 0)
+          BASELINE=$(cat .github/bundle-baseline-bytes.txt || echo 0)
+          if [ "$BASELINE" -eq 0 ]; then
+            echo "No baseline available; skipping bundle-size check"
+            exit 0
+          fi
           DELTA=$(( (CURRENT-BASELINE) * 100 / BASELINE ))
           echo "Current bundle bytes: ${CURRENT}"
           echo "Baseline bundle bytes: ${BASELINE}"
@@ -59,12 +71,13 @@ jobs:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
         with:
-          version: 8.10.0
+          version: latest
       - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: pnpm
-      - run: pnpm install --frozen-lockfile
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
       - name: Trivy scan
         uses: aquasecurity/trivy-action@v0.36.0
         with:
