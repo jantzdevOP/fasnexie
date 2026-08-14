@@ -2,7 +2,8 @@
   "extends": "./base.json",
   "compilerOptions": {
     "jsx": "react-native",
-    "lib": ["es2020", "dom"]
+    "lib": ["es2020", "dom"],
+    "moduleResolution": "node"
   },
   "include": ["**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
