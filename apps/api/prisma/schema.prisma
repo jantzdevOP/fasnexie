@@ -17,24 +17,80 @@ enum UserRole {
   INVESTOR
 }
 
+enum FeedContentType {
+  tip
+  designer
+  sale
+  arrival
+  collection
+  story
+  challenge
+  nexi
+  drop
+}
+
 model User {
-  id         String   @id @default(cuid())
-  email      String   @unique
-  name       String?
-  role       UserRole @default(CONSUMER)
-  styleDNA   String?
-  wardrobeItems WardrobeItem[]
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id                String   @id @default(cuid())
+  email             String   @unique
+  name              String?
+  role              UserRole @default(CONSUMER)
+  styleDNA          String?  @db.Text // JSON: { archetypeId, tags[], cities[], occasions[] }
+  feedPreferences   String?  @db.Text // JSON: { boostTypes[], muteTypes[], hideTypes[], boostTags[], muteTags[], boostCities[], muteCities[], personalisationWeight, boostStrength, muteStrength }
+  wardrobeItems     WardrobeItem[]
+  feedFavourites    FeedFavourite[]
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 }
 
 model WardrobeItem {
-  id         String   @id @default(cuid())
-  userId     String
-  name       String
-  category   String
-  createdAt  DateTime @default(now())
-  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id        String   @id @default(cuid())
+  userId    String
+  name      String
+  category  String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
+}
+
+model FeedItem {
+  id            String          @id @default(cuid())
+  type          FeedContentType
+  title         String
+  summary       String          @db.Text
+  city          String
+  country       String          @default("Nigeria")
+  category      String
+  tags          String[]        @default([]) // JSON array
+  imageUrl      String
+  author        String?
+  meta          String?         @db.Text // JSON: any additional metadata
+  cta           String?         // Call-to-action text
+  styleDnaWeight Float          @default(0.5)
+  matchTags     String[]        @default([]) // Tags for ranking/filtering
+  publishedAt   DateTime        @default(now())
+  active        Boolean         @default(true)
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  
+  favourites    FeedFavourite[]
+
+  @@index([type])
+  @@index([country])
+  @@index([active])
+  @@index([publishedAt])
+}
+
+model FeedFavourite {
+  id        String   @id @default(cuid())
+  userId    String
+  feedItemId String
+  createdAt DateTime @default(now())
+  
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  feedItem  FeedItem @relation(fields: [feedItemId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, feedItemId])
+  @@index([userId])
+  @@index([feedItemId])
 }
