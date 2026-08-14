@@ -6,3 +6,5 @@ export * from './NexiGeometricForm';
 export * from './GoldBurstLike';
 export * from './LoadingWeave';
 export * from './EmptyState';
+export * from './SegmentTabs';
+export * from './Skeleton';
