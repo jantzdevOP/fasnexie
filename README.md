@@ -79,3 +79,7 @@ pnpm format
 
 ## License
 Proprietary
+
+---
+
+Automated dependency upgrade and autofix in progress on branch Nexieupdate.

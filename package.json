@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Fasnexi - Fashion Technology Platform",
   "private": true,
-  "packageManager": "pnpm@8.10.0",
+  "packageManager": "pnpm@latest",
   "scripts": {
     "dev": "turbo run dev",
     "dev:mobile": "pnpm --filter @fasnexi/mobile run dev",
@@ -15,7 +15,8 @@
     "type-check": "turbo run type-check",
     "clean": "turbo run clean && rm -rf node_modules",
     "db:migrate": "turbo run db:migrate",
-    "db:seed": "turbo run db:seed"
+    "db:seed": "turbo run db:seed",
+    "upgrade:deps": "pnpm -w up -L"
   },
   "devDependencies": {
     "@repo/eslint-config": "*",
