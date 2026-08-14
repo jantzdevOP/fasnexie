@@ -6,6 +6,7 @@
   "packageManager": "pnpm@8.10.0",
   "scripts": {
     "dev": "turbo run dev",
+    "dev:mobile": "pnpm --filter @fasnexi/mobile run dev",
     "build": "turbo run build",
     "test": "turbo run test",
     "test:e2e": "turbo run test:e2e",
