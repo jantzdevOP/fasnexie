@@ -18,7 +18,7 @@
     "clean": "rm -rf .next dist node_modules"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.10.0",
+    "@anthropic-ai/sdk": "^0.115.0",
     "@prisma/client": "^5.0.0",
     "better-auth": "^1.0.0",
     "bullmq": "^4.11.0",
