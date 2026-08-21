@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@jest/types": "^29.6.3",
-    "@playwright/test": "^1.40.0",
+    "@playwright/test": "^1.62.1",
     "@repo/eslint-config": "*",
     "@repo/tsconfig": "*",
     "@testing-library/react": "^16.3.2",
